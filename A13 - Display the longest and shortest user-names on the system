@@ -1,0 +1,27 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 03/11/2023
+#Description  : Display the longest and shortest user-names on the system
+#Sample Input :./largest_username.sh
+#Sample Output: The Longest Name is: speech-dispatcher
+The Shortest Name is:lp
+DOC
+
+
+arr=(`cat /etc/passwd | cut -d ":" -f1`)
+smallest=${arr[0]}                                              #initialize small with first user name
+longest=${arr[0]}                                               #initialize large with first user name
+for i in `seq  $((${#arr[@]}-1))`                               #looping number of user
+do
+       if [ ${#longest} -lt  ${#arr[$i]} ]                      #condition to Check for largest user name
+       then
+           longest=${arr[$i]}
+        fi
+        if [ ${#smallest} -gt  ${#arr[$i]} ]                    #Condition to check fo the smallest user name
+        then
+            smallest=${arr[$i]}
+fi
+done
+echo "The Longest Name is: $longest"
+echo "The Shortest Name is:$smallest"
