@@ -1,0 +1,25 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 02/11/2023
+#Description  : WAS to print contents of a directory without ls command
+#Sample Input :
+#Sample Output:
+DOC
+
+if [ $# -ne 0 ]                  #Check the command line argument
+then
+    for i in $@                  #To get one by one directory through for loop
+    do
+        if [ -d $i ]
+        then
+           `cd $i`               #change Directory to required Directory
+          pwd
+          echo*                 #Print the content of current working directory
+     else
+        echo "Output_ls.sh: Cannot access `$i` :No such a file or directory."
+        fi                      #To get the error message if no file or directory present
+    done
+else
+    echo *                      #Get the content
+fi
