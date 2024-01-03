@@ -1,0 +1,44 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 10/11/2023
+#Description  : Write a script to replace 20% lines in a C file randomly and replace it with the pattern
+#Sample Input : Before replacing
+                #incude <stdio.h>
+                int main()
+                {
+                        printf(“Hello world\n”);
+                }
+#Sample Output: #incude <stdio.h>
+                int main()
+                {
+                        <-----------Deleted------------>
+                }
+DOC
+
+if [ $# -ne 0 ]                                                                 #Check the length not equal to 0
+then
+    if [ -f $1 ]                                                                #Check file or not
+    then
+        leng=`cat $1 | wc -l`                                                   #Check number of lines
+                                        if [ $leng -ge 5 ]                      #Check length greater then 5
+        then
+            per=$(($leng/5))                                                    #Length by 5 to get 20%
+            arr=(`shuf -i 1-$leng -n$per`)                                      #Shuflel lines and print 20% line
+            echo "Before replacing"                                             #Print the statement
+            cat $1                                                              #Display file
+            for i in ${arr[@]}                                                  #Run i loop for array times
+            do
+                sed -i "$i s/.*/<-------DELETED------->/g" $1                   #To replace the line
+            done
+            echo "After replacing"                                              #Print statement
+            cat $1                                                              #Display file
+        else
+            echo "Error : $1 is empty file. So can't replace the string."       #Print error statement
+        fi
+    else
+        echo "Error : No such a file."                                          #Print error statement
+    fi
+else
+    echo "Error : Please pass the file name through command line."              #Print message if command line not passed
+fi
