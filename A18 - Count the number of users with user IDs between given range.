@@ -1,0 +1,45 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 06/11/2023
+#Description  :  Count the number of users with user IDs between given range.
+#Sample Input :Total count of user ID between 500 to 10000 is: 2,
+               Total count of user ID between 0 to 100 is : 3,
+               ./user_ids.sh 200 100
+#Sample Output: Error : Please pass 2 arguments through CL.
+                Usage : ./user_ids.sh 100 200,
+                Error : Invalid range. Please enter the valid range through CL.
+DOC
+
+
+array=(`cat /etc/passwd | cut -d ":" -f3`)                                      #To store User Id in array
+count=0                                                                         #Inialize count=0
+if [ $# -eq 0 ]                                                                 #IF no CLI is passed
+then
+    for i in ${arrary[@]}                                                       #For loop to get each user id
+    do
+        if [ $i -gt 500 -a $i -lt 10000 ]                                       #If no CLA passed are equal 2
+        then
+            count=$(($count+1))                                                 #Increament the count
+        fi
+    done
+    echo " Total count of user ID between 500 to 10000 is: $count"              #Print the count
+elif [ $# -eq 2 ]                                                               #To check if CLA passed are equal 2
+then
+    if [ $1 -lt $2 ]                                                            #To check first CLA is greater than second
+    then
+        for i in ${array[@]}
+        do
+            if [ $i -gt $1 -a $i -lt $2 ]                                       #To check the number of Id in between given range
+            then
+                count=$(($count+1))                                             #To get the number of how many present in between given range
+            fi
+        done
+    echo "Total count of user ID between $1 to $2 is:$count"                    #Print the count
+    else
+        echo "Error:Invalid range.Please enter the valid range through CL."     #If first argument greater than second print error message
+    fi
+else
+    echo "Error:Please pass 2 arguments through CL."                            #If command line arguments are not equal to 0 and 2 print the error message
+    echo "Usage:./user_ids.sh 100 200"
+fi
