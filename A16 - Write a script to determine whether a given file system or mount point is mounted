@@ -1,0 +1,39 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 09/11/2023
+#Description  : A16 - Write a script to determine whether a given file system or mount point is mounted
+#Sample Input : ./mounted_fs.sh /dev/sda2,
+                ./mounted_fs.sh /dev,
+                ./mounted_fs.sh
+#Sample Output: File-system /dev/sda2 is mounted on / and it is having 98%
+used space with 3298220 KB free.
+/dev is not mounted.
+Error : Please pass the name of the file-system through command line.
+DOC
+
+flag=0                                                  #initialize flag=0
+file=(`df | tr -s " " | cut -d " " -f1`)                #To get File
+mount=(`df | tr -s " " | cut -d " " -f6`)               #To get where file is mount
+use=(`df | tr -s " " | cut -d " " -f5`)                 #To get Usage
+available=(`df | tr -s " " | cut -d " " -f4`)           #To get Available space
+if [ $# -ne 0 ]
+then
+    leng=$((${#file[@]}-1))
+    for i in `seq $leng`
+    do
+        if [ ${file[$i]}=$1 ]                           #To Check argument passed in file
+        then
+            flag=1                                      #Initialize flag=1 to know file is mounted or not
+            echo "File-system ${file[$i]} is mounted on ${mount[$i]} and it is having ${use[$i]} used space with ${available[$i]} KB free."
+
+        fi
+    done
+if [ $flag -eq 0 ]                                      #If flag is equal to 1 print file is not mounted on system
+then
+    echo "$ is not Mounted"
+fi
+else                                                    #Print error message if no argument passed
+    echo "Error: Please pass the name of the File-System through command line"
+fi
+
