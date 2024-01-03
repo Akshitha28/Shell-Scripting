@@ -1,0 +1,67 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 26/10/2023
+#Description  : Write a script to perform arithmetic operation on digits of a given number.
+#Sample Input : ./operator_dependent.sh 1234+,
+                ./operator_dependent.sh 8312-,
+                ./operator_dependent.sh 5487,
+                ./operator_dependent.sh 1111x,
+                ./operator_dependent.sh 12/,
+                ./operator_dependent.sh
+#Sample Output: Sum pf digits = 10,
+                Subtraction of digits = 2,
+                Error:Operator missing or invalid operator, please pass operator as last digit(+,-,x,/)
+                Multiplication of digits = 1,
+                Division of digits = 50,
+                Error: Please pass the arguments through CL.
+                Usage:./operator_dependent.sh 2345+
+DOC
+
+
+if [ $# -eq 1 ]                                 #Check for Command line arguments
+then
+    arr=$1                                      #arr is stored in one variable
+    operator=${arr: -1}                         #To get last digit operator
+    n=$((${#arr}-2))                            #Get length of arr and store it in variable n
+    case $operator in                           #Case statement to perform operation
+        +)
+            sum=${arr:0:1}
+            for i in `seq 1 $n`                 #Addition of digits
+                   do
+                       sum=$(($sum+${arr:$i:1}))
+                   done
+                       echo "Sum of digits = $sum"
+                ;;
+            -)
+                sub=${arr:0:1}
+                for i in `seq 1 $n`             #Subtraction of digits
+                    do
+                        sub=$(($sub-${arr:$i:1}))
+                    done
+                        echo " Subtraction of digits = $sub"
+                ;;
+            x)
+                mul=${arr:0:1}
+                for i in `seq 1 $n`             #Multipication of digits
+                    do
+                        mul=$((${arr:$i:1}*$mul))
+                    done
+                echo "Multiplication of digits = $mul"
+                ;;
+            /)
+                div=${arr:0:1}
+                for i in `seq 1 $n`             #Division of digits
+                do
+                    div=`echo "scale=2; $div / ${arr:$i:1}" | bc`
+                done
+                echo "Division of digits =$div"
+                ;;
+             *)
+                 echo "Error: Operator missing or invalid operator, please pass operator as last digit (+,-,x,/)"
+                                                 #If we dont pass any operator the message will be printed
+         esac
+     else
+                 echo "Error: Please pass the arguments through CL."
+                 echo "Usage: ./operator_dependent.sh 2345+"
+fi
