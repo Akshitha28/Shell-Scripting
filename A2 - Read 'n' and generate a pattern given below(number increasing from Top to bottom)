@@ -1,0 +1,24 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         :20/10/2023
+#Description  : Read 'n' and generate a pattern given below (number increments from top to Bottom)
+#Sample Input : Enter the number:4
+#Sample Output: 1
+                2 3
+                4 5 6
+                7 8 9 10
+DOC
+
+
+read -p "Enter the number: " n
+counter=1       #Initialize a counter to keep track of numbers
+for i in $(seq 1 $n)            #Outer loop to iterate from 1 to n
+do
+    for j in $(seq 1 $i)        #Inner loop to generate each row
+    do
+        echo -n "$counter "     #print the current number
+        counter=$((counter+1))  #Increment the counter for the next number
+        done
+        echo            #move to next line for the next row
+done
