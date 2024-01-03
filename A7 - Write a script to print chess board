@@ -1,0 +1,26 @@
+#!/bin/bash
+<<DOC
+#Name         :Akshitha S
+#Date         :20/10/2023
+#Description  :Scrip to print chess board
+#Sample Input :
+#Sample Output:
+DOC
+
+for row in `seq 8`                      #Rows of chesss board
+do
+    for col in `seq 8`                  #columns of chess board
+    do
+        sum=$((row+col))
+        rem=$((sum%2))                  #Check whether row is equal to column
+        if [ $rem -eq 0 ]
+        then
+            echo -e -n "\e[47m" " "     #Black box in chess board
+        else
+            echo -e -n "\e[40m" " "     #white box in Chess Board
+        fi
+    done
+    echo -e -n "\e[0m" " "              #To make it normal
+echo
+done
+
