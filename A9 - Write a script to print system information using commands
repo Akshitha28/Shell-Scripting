@@ -1,0 +1,94 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 09/11/2023
+#Description  : Write a script to print system information using commands
+#Sample Input : 1. Currently logged users
+                2. Your shell directory
+                3. Home directory
+                4. OS name & version
+                5. Current working directory
+                6. Number of users logged in
+                7. Show all available shells in your system
+                8. Hard disk information
+                9. CPU information.
+                10. Memory Informations
+                11. File system information.
+                12. Currently running process.
+#Sample Output: Enter the choice : 2
+                Your shell directory is /bin/bash
+                Do you want to continue (y/n) ? y
+DOC
+
+
+choice=y                 #For first time initialize choice to y=yes to get first time menu
+while [ $choice = y -o $choice = Y  ]
+do
+    echo "1. Currently logged users"              #Dispaly menu
+    echo "2. Your shell directory"
+    echo "3. Home directory."
+    echo "4. OS name & version."
+    echo "5. Current working directory."
+    echo "6. Number of users logged in."
+    echo "7. Show all available shells in your system."
+    echo "8. Hard disk information."
+    echo "9. CPU information."
+    echo "10. Memory information."
+    echo "11. File system information."
+    echo "12. Currently running process."
+    read -p "Enter the choice:" n
+    case $n in
+        1)
+            echo "Currently logged in user is:"          #Get Currently logged in user
+            echo "`w`"
+            ;;
+        2)
+            echo "Your shell directory is"              #for shell directory
+            echo $SHELL
+            ;;
+        3)
+            echo "Home Directory is"                     #For home directory
+            echo $HOME
+            ;;
+        4)
+            echo "OS name & version is:"                #for OS name and version
+            echo "`uname -a`"
+            ;;
+        5)
+            echo "Current working directory:"           #to get current working directory
+            echo "`pwd`"
+            ;;
+        6)
+            echo "Number of users logged in:"           #for number of logged in user
+            echo "`who -q`"
+            ;;
+        7)
+            echo "Show all available shells in your system.:"
+            echo "`cat /etc/shells`"                    #To get Available shell
+            ;;
+        8)
+             echo "Hard disk information.:"              #To get hardware information
+             echo "`hwinfo`"
+             ;;
+        9)
+             echo "CPU Information:"                     #To get CPU information
+             echo "`cat /proc/cpuinfo`"
+             ;;
+        10)
+             echo "Memory information:"                 #To get memory information
+             echo "`cat /proc/meminfo`"
+             ;;
+        11)
+             echo "File System info:"                    #for File system
+             echo "`df`"
+             ;;
+        12)
+             echo "Current running process:"             #Current running process
+             echo "`ps`"
+             ;;
+         *)
+             echo "Error : Invalid option, please enter valid option"   #if no choice given it will print error message
+             ;;
+     esac
+     read -p  "do you want to continue:y/n" choice      #Enter choice to n/stop
+ done
