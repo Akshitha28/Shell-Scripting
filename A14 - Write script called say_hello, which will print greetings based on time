@@ -1,0 +1,36 @@
+#!/bin/bash
+<<DOC
+#Name         : Akshitha S
+#Date         : 02/11/2023
+#Description  :  Write script called say_hello, which will print greetings based on time
+#Sample Input : When we start shell (whenever you opening new tab or terminal)
+#Sample Output: Good Morning user, Have nice day!
+This is Thursday 08 in June of 2017 (10:44:10 AM)
+DOC
+
+hour=`date | cut -d " " -f5 | cut -d ":" -f1`           #To fetch Hour
+day=`date +%A`                                          #To get only Day
+date=`date | cut -d " " -f4`                            #To get Date
+month=`date +%B`                                        #To get Month
+year=`date | cut -d " " -f7`                            #To Get Year
+time=`date +%r`                                         #To get time
+if [ $hour -ge 5 -a $hour -lt 12 ]
+then                                                    #if Hour is between 5 an 12 print Good Morning
+    echo "Good Morning `whoami`, have a nice day!
+   This is $day $date in $month of $year ($time)"
+elif [ $hour -ge 12 -a $hour -lt 14 ]                   #if Hour is between 12 and 14 print Good noon
+then
+   echo "Good Noon `whoami`, have a nice day!
+   This is $day $date in $month of $year ($time)"
+elif [ $hour -ge 14 -a $hour -lt 17 ]                   #If Hour is in between 14 and 17 print Good Afternoon
+then
+   echo "Good Afternoon `whoami`, have a nice day!
+   This is $day $date in $month of $year ($time)"
+elif [ $hour -ge 17 -a $hour -lt 21 ]                   #If Hour is between 17 and 21 print Good Evening
+then
+   echo "Good Evening `whoami`, have a nice day!
+   This is $day $date in $month of $year ($time)"
+else                                                    #default condition where 21>houres<5 using logical statement
+    echo "Good night `whoami`, have a nice day!
+    This is $day $date in $month of $year ($time)"      #Then print the statement
+fi    
